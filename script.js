@@ -4,8 +4,8 @@ import constants from './constants.js';
 let monthsOffset = 0;
 let dateClicked = null;
 
-let events = sessionStorage.getItem("events")
-  ? JSON.parse(sessionStorage.getItem("events"))
+let events = sessionStorage.getItem(constants.SESSION_STORAGE_EVENTS_KEY)
+  ? JSON.parse(sessionStorage.getItem(constants.SESSION_STORAGE_EVENTS_KEY))
   : [];
 
 /**
@@ -40,12 +40,12 @@ function openEventBar(date) {
     document.getElementById(
       "descriptionRead"
     ).innerText = `Description: ${eventForDay.description}`;
-    constants.deleteEventModal.style.display = constants.BLOCK_STRING;
-    constants.backDrop.style.display = constants.BLOCK_STRING;
+    constants.deleteEventModal.style.display = constants.DISPLAY_TYPES.BLOCK;
+    constants.backDrop.style.display = constants.DISPLAY_TYPES.BLOCK;
   } else {
-    constants.newEventBar.style.display = constants.BLOCK_STRING;
+    constants.newEventBar.style.display = constants.DISPLAY_TYPES.BLOCK;
     constants.eventHeader.innerText =
-      "New event for " + dateClicked;
+      `New event for ${dateClicked}`;
   }
 }
 
@@ -113,29 +113,29 @@ function initializeCalendarView() {
 }
 
 function closeEventBar() {
-  constants.eventTitleInput.classList.remove(constants.ERROR_STRING);
-  constants.newEventBar.style.display = constants.NONE_STRING;
-  constants.deleteEventModal.style.display = constants.NONE_STRING;
+  constants.eventTitleInput.classList.remove(constants.ERROR_CLASS);
+  constants.newEventBar.style.display = constants.DISPLAY_TYPES.NONE;
+  constants.deleteEventModal.style.display = constants.DISPLAY_TYPES.NONE;
   constants.eventTitleInput.value = "";
   dateClicked = null;
-  constants.backDrop.style.display = constants.NONE_STRING;
+  constants.backDrop.style.display = constants.DISPLAY_TYPES.NONE;
 
   constants.startTimeInput.value = "";
   constants.endTimeInput.value = "";
 
-  constants.startTimeInput.classList.remove(constants.ERROR_STRING);
-  constants.endTimeInput.classList.remove(constants.ERROR_STRING);
+  constants.startTimeInput.classList.remove(constants.ERROR_CLASS);
+  constants.endTimeInput.classList.remove(constants.ERROR_CLASS);
 
-  constants.errorText.style.display = constants.NONE_STRING;
+  constants.errorText.style.display = constants.DISPLAY_TYPES.NONE;
 
   initializeCalendarView();
 }
 
 function saveEvent() {
-  constants.eventTitleInput.classList.remove(constants.ERROR_STRING);
-  constants.startTimeInput.classList.remove(constants.ERROR_STRING);
-  constants.endTimeInput.classList.remove(constants.ERROR_STRING);
-  constants.eventType.classList.remove(constants.ERROR_STRING);
+  constants.eventTitleInput.classList.remove(constants.ERROR_CLASS);
+  constants.startTimeInput.classList.remove(constants.ERROR_CLASS);
+  constants.endTimeInput.classList.remove(constants.ERROR_CLASS);
+  constants.eventType.classList.remove(constants.ERROR_CLASS);
 
   if (
     constants.eventTitleInput.value &&
@@ -144,9 +144,9 @@ function saveEvent() {
     constants.eventType.value
   ) {
     if (constants.startTimeInput.value > constants.endTimeInput.value) {
-      constants.startTimeInput.classList.add(constants.ERROR_STRING);
-      constants.endTimeInput.classList.add(constants.ERROR_STRING);
-      constants.timeErrorText.style.display = constants.BLOCK_STRING;
+      constants.startTimeInput.classList.add(constants.ERROR_CLASS);
+      constants.endTimeInput.classList.add(constants.ERROR_CLASS);
+      constants.timeErrorText.style.display = constants.DISPLAY_TYPES.BLOCK;
     } else {
       events.push({
         date: dateClicked,
@@ -156,25 +156,25 @@ function saveEvent() {
         eventType: constants.eventType.value,
         description: constants.eventDescriptionInput.value,
       });
-      sessionStorage.setItem("events", JSON.stringify(events));
+      sessionStorage.setItem(constants.SESSION_STORAGE_EVENTS_KEY, JSON.stringify(events));
       closeEventBar();
     }
   } else if (!eventTitleInput.value) {
-    eventTitleInput.classList.add(constants.ERROR_STRING);
-    constants.errorText.style.display = constants.BLOCK_STRING;
+    eventTitleInput.classList.add(constants.ERROR_CLASS);
+    constants.errorText.style.display = constants.DISPLAY_TYPES.BLOCK;
   } else if (!constants.startTimeInput.value) {
-    constants.startTimeInput.classList.add(constants.ERROR_STRING);
-    constants.errorText.style.display = constants.BLOCK_STRING;
+    constants.startTimeInput.classList.add(constants.ERROR_CLASS);
+    constants.errorText.style.display = constants.DISPLAY_TYPES.BLOCK;
   } else if (!constants.endTimeInput.value) {
-    constants.endTimeInput.classList.add(constants.ERROR_STRING);
-    constants.errorText.style.display = constants.BLOCK_STRING;
+    constants.endTimeInput.classList.add(constants.ERROR_CLASS);
+    constants.errorText.style.display = constants.DISPLAY_TYPES.BLOCK;
   }
 }
 
 function deleteEvent() {
-  constants.backDrop.style.display = constants.BLOCK_STRING;
+  constants.backDrop.style.display = constants.DISPLAY_TYPES.BLOCK;
   events = events.filter((e) => e.date !== dateClicked);
-  localStorage.setItem("events", JSON.stringify(events));
+  localStorage.setItem(constants.SESSION_STORAGE_EVENTS_KEY, JSON.stringify(events));
   closeEventBar();
 }
 
