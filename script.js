@@ -73,7 +73,7 @@ function initializeCalendarView() {
     day: "numeric",
   });
 
-  const paddingDays = WEEKDAYS.indexOf(dateString.split(", ")[0]);
+  const paddingDays = constants.WEEKDAYS.indexOf(dateString.split(", ")[0]);
 
   document.getElementById("monthDisplay").innerText = `${dt.toLocaleDateString(
     "en-gb",
