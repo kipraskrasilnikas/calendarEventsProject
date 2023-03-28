@@ -2,7 +2,7 @@
 
 <h3> 
 
-This is an event calendar app for work, where an user can view, create and delete events. 
+This is an event calendar app for work, where a user can view, create and delete events. 
 
 An event is created by clicking on the desirable day of the calendar, inputing the event information and clicking "Save". There are 3 types of events: Call, Meeting and Out Of Office. 
 
