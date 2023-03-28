@@ -1,6 +1,6 @@
 # A calendar project with raw Javascript, made to showcase my skills and coding style in the front-end department.
 
-<h3> 
+<p>
 
 This is an event calendar app for work, where a user can view, create and delete events. 
 
@@ -12,4 +12,4 @@ Finally, it is possible to view the event by clicking on it, after the possibili
 
 The calendar is always current, it is possible to switch between months with the buttons "Back" and "Next".
 
-</h3>
+</p>
